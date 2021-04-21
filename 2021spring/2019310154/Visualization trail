@@ -1,0 +1,87 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[13]:
+
+
+import numpy as np
+
+
+# In[14]:
+
+
+from scipy.stats import norm
+
+
+# In[15]:
+
+
+import matplotlib.pyplot as plt
+
+
+# In[16]:
+
+
+r=norm.rvs(loc=0,scale=1,size=1000)
+x=np.linspace(norm.ppf(0.01),norm.ppf(0.99),100)
+
+
+# In[17]:
+
+
+fig,ax=plt.subplots(1,1)
+ax.plot(x,norm.pdf(x),'blue',lw=5,alpha=0.6,label='norm pdf')
+plt.show()
+
+
+# In[20]:
+
+
+fig, ax = plt.subplots(1, 1)
+ax.hist(r, normed=True, histtype='stepfilled', alpha=1, label='...')
+ax.legend(loc='best', frameon=False)
+plt.show()
+
+
+# In[21]:
+
+
+from matplotlib import pyplot as plt
+years=[1950,1960,1970,1980,1990,2000,2010]
+gdp=[300.2,543.3, 1075.9, 2862.5, 5979.6, 10289.7, 14958.3]
+fig=plt.figure()
+plt.plot(years,gdp,color='green',marker='o',linestyle='solid')
+plt.ylabel('Billions of $')
+plt.show()
+
+
+# In[24]:
+
+
+from scipy import special
+def drumhead_height(n,k,distance,angle,t):
+    kth_zero=special.jn_zeros(n,k)[-1]
+    return np.cos(t) * np.cos(n*angle)*special.jn(n,distance*kth_zero)
+theta=np.r_[0:2*np.pi:50j]
+radius=np.r_[0:1:50j]
+x=np.array([r*np.cos(theta) for r in radius])
+y=np.array([r*np.sin(theta) for r in radius])
+z=np.array([drumhead_height(1,1,r,theta,0.5) for r in radius])
+
+
+# In[26]:
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+fig=plt.figure()
+ax=Axes3D(fig)
+ax.plot_surface(x,y,z,rstride=1,cstride=1,cmap=cm.jet)
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+plt.show()
+
+
+
+
+
